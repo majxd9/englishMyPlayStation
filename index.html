@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oxford 3000 — خطة 50 كلمة أسبوعيًا</title>
+<style>
+/* ===== 1) الألوان والخطوط: ألوان هادئة للدراسة الطويلة + وضع داكن تلقائي ===== */
+:root{--bg:#f1f4f3;--card:#fff;--ink:#1d2b2e;--mute:#62767a;--line:#d8e1df;--pri:#2c6e72;--pri2:#dbebea;--ok:#2f7d5c;--ok2:#e0f1e8;--warn:#94651a;--warn2:#f7ebcf;--shadow:0 6px 18px rgba(29,43,46,.09);--en:Georgia,"Times New Roman",serif}
+@media(prefers-color-scheme:dark){:root{--bg:#111a1c;--card:#192326;--ink:#e5eded;--mute:#93a7aa;--line:#2a3a3d;--pri:#7fc4c7;--pri2:#223b3d;--ok:#6fd0a0;--ok2:#17352a;--warn:#e8bd68;--warn2:#3a2f15;--shadow:none}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI",Tahoma,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+.in{animation:in .35s ease}                       /* حركة الانتقال بين الشاشات */
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+h1{font-size:1.45rem;line-height:1.4;margin:.3em 0}
+h2{font-size:1.1rem;margin:1.5em 0 .6em}
+small,.mute{color:var(--mute)}
+.en{font-family:var(--en)}                        /* الإنكليزية بخط مختلف عن واجهة العربية */
+
+/* ===== 2) الصفحة الرئيسية ===== */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.chip{background:var(--pri2);color:var(--pri);border-radius:99px;padding:3px 12px;font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:.9rem;color:var(--mute)}
+.stat b{display:block;font-size:1.45rem;color:var(--ink)}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:12px 0}
+.bar i{display:block;height:100%;background:var(--ok);transition:width .5s ease}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.wk{display:flex;flex-direction:column;gap:4px;min-height:132px;text-align:start;font:inherit;color:inherit;cursor:pointer;padding:14px;border:1px solid var(--line);border-radius:18px;
+  background:linear-gradient(to top,var(--ok2) var(--p,0%),var(--card) var(--p,0%));transition:transform .2s,box-shadow .2s,border-color .2s}
+.wk:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--pri)}
+.wk:active{transform:scale(.98)}
+.wk.ghost{border-style:dashed;background:none;color:var(--mute);cursor:default}
+.wk.ghost:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.wk b{font-size:1.05rem}
+.tag{font-style:normal;font-size:.78rem;border-radius:99px;padding:1px 10px;align-self:flex-start;margin-top:auto}
+.t0{background:var(--line);color:var(--mute)}.t1{background:var(--warn2);color:var(--warn)}.t2{background:var(--ok2);color:var(--ok);border:1px solid var(--ok)}
+
+/* ===== 3) صفحة الأسبوع: الأزرار وقائمة الكلمات ===== */
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.btn{background:var(--pri);color:var(--bg);border:1px solid var(--pri);border-radius:12px;padding:9px 16px;font:inherit;cursor:pointer;transition:background .2s,transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.alt{background:var(--pri2);color:var(--pri)}
+.btn.alt.on{background:var(--pri);color:var(--bg)}   /* الزر النشط */
+.link{background:none;border:0;color:var(--pri);font:inherit;cursor:pointer;padding:6px 0}
+ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+li{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;transition:background .25s,border-color .25s,transform .2s,box-shadow .2s}
+li:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+li.on{background:var(--ok2);border-color:var(--ok)}
+.top{display:flex;align-items:center;gap:10px}
+.t{flex:1;min-width:0}
+.t b{font-size:1.2rem}
+.lv{font-size:.72rem;background:var(--pri2);color:var(--pri);border-radius:6px;padding:0 6px;margin-inline-start:6px}
+.ar{color:var(--mute);max-width:42%;text-align:end}
+.sn{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.ex{margin:0;flex:1;font-size:1.05rem}
+.ar,.ex{transition:filter .25s}
+.hs .ex:not(.sh),.hm .ar:not(.sh){filter:blur(7px);cursor:pointer}   /* وضع اختبار الذاكرة: انقر للكشف */
+.ic{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:var(--pri2);font-size:1.1rem;cursor:pointer;transition:transform .15s}
+.ic:hover{transform:scale(1.1)}
+.chk{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:none;color:transparent;cursor:pointer;font-size:1.1rem;transition:background .2s,border-color .2s}
+li.on .chk{background:var(--ok);border-color:var(--ok);color:#fff}
+
+/* ===== 4) بطاقات المراجعة ===== */
+.fc{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:36px 16px;text-align:center;min-height:260px;cursor:pointer;transition:box-shadow .2s}
+.fc:hover{box-shadow:var(--shadow)}
+.big{font-size:2.3rem;font-weight:700}
+.ans{font-size:1.6rem;margin:16px 0 6px;color:var(--pri)}
+button:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+mark{background:var(--warn2);color:inherit;border-radius:4px;padding:0 3px}   /* إبراز الكلمة داخل الجملة */
+.ic.sm{width:34px;height:34px;font-size:.95rem}
+
+/* ===== 5) الاختبار ===== */
+.qc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 16px;text-align:center}
+.qc .en{font-size:1.35rem;margin:10px 0 0}
+.opts{display:grid;gap:10px;margin:14px 0}
+.opt{font-size:1.15rem;text-align:start;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
+.opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--pri)}
+.opt.good{background:var(--ok2);border-color:var(--ok)}.opt.good::before{content:"✓ "}
+.opt.bad{background:var(--warn2);border-color:var(--warn)}.opt.bad::before{content:"✕ "}
+@media(max-width:480px){.wrap{padding:12px}.ar{max-width:36%}.row .btn{flex:1 1 45%}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===== 1) البيانات =====
+   كل أسبوع = مصفوفة من 50 نصًا بصيغة: "الكلمة|النوع|المستوى|المعنى العربي|جملة إنجليزية".
+   الكلمات من ملف Oxford 3000 مرتبة تدريجيًا: الأساسي الأكثر استعمالًا أولًا ثم الأصعب.
+   لإضافة أسبوع جديد: أضِف مصفوفة جديدة في نهاية WEEKS (حتى 20 أسبوعًا = 1000 كلمة).
+   آخر كلمة مستخدمة حاليًا: important */
+const WEEKS=[[
+"name|n./v.|A1|اسم؛ يسمّي|My name is Omar and I study computer science.",
+"time|n.|A1|وقت|I do not have much time to finish the project.",
+"day|n.|A1|يوم|I write code for two hours every day.",
+"year|n.|A1|سنة، عام|This is my second year at the university.",
+"people|n.|A1|ناس، أشخاص|Many people use this app every day.",
+"work|v./n.|A1|يعمل؛ عمل|I work on my project every evening.",
+"school|n.|A1|مدرسة|I started to learn English at school.",
+"friend|n.|A1|صديق|My friend helps me with my homework.",
+"family|n./adj.|A1|عائلة|My family lives in a small city.",
+"home|n./adv.|A1|بيت؛ إلى المنزل|I study at home when the library is full.",
+"city|n.|A1|مدينة|The university is in the center of the city.",
+"country|n.|A1|بلد|Many students in my country want to learn English.",
+"world|n.|A1|عالم|The internet connects people around the world.",
+"life|n.|A1|حياة|Technology makes our life easier.",
+"money|n.|A1|مال، نقود|I need some money to buy a new laptop.",
+"book|n./v.|A1|كتاب؛ يحجز|This book explains programming in simple words.",
+"number|n.|A1|رقم، عدد|Please write your phone number on this page.",
+"water|n.|A1|ماء|Drink some water while you study.",
+"food|n.|A1|طعام|The food in the university cafe is cheap.",
+"student|n.|A1|طالب|Every student has a username and a password.",
+"computer|n.|A1|حاسوب|My computer is old, but it works well.",
+"phone|n./v.|A1|هاتف|I use my phone to learn new words.",
+"question|n.|A1|سؤال|Can I ask you a question about this code?",
+"problem|n.|A1|مشكلة|There is a problem with my internet connection.",
+"go|v.|A1|يذهب|I go to the computer lab every Tuesday.",
+"come|v.|A1|يأتي|Please come to class on time.",
+"make|v.|A1|يصنع، يجعل|We make a simple website in this course.",
+"get|v.|A1|يحصل على|I get a lot of emails every morning.",
+"give|v.|A1|يعطي|The teacher gives us a lot of homework.",
+"take|v.|A1|يأخذ|Take a short break after one hour of study.",
+"see|v.|A1|يرى|I can see an error on the screen.",
+"want|v.|A1|يريد|I want to build my own app.",
+"need|v.|A1|يحتاج|We need a strong password for this account.",
+"like|v.|A1|يحب؛ يعجبه|I like solving small problems with code.",
+"know|v.|A1|يعرف|Do you know the answer to question five?",
+"think|v.|A1|يفكر، يظن|I think this method is faster.",
+"use|v.|A1|يستخدم|We use Python in our first programming course.",
+"help|v./n.|A1|يساعد؛ مساعدة|Can you help me install this program?",
+"look|v.|A1|ينظر|Look at the screen and read the message.",
+"ask|v.|A1|يسأل|Do not be afraid to ask the teacher for help.",
+"tell|v.|A1|يخبر|Tell me what the error message says.",
+"good|adj.|A1|جيد|Reading every day is a good way to learn English.",
+"new|adj.|A1|جديد|I downloaded a new version of the app.",
+"big|adj.|A1|كبير|This project is big, so we need a team.",
+"small|adj.|A1|صغير|Start with a small program, then make it bigger.",
+"old|adj.|A1|قديم؛ مسنّ|My old laptop is very slow.",
+"first|det./adv.|A1|أول؛ أولًا|First, open the file. Then read the first line.",
+"easy|adj.|A1|سهل|This exercise is easy for me.",
+"hard|adj./adv.|A1|صعب؛ بجهد|The exam was hard, but I passed it.",
+"important|adj.|A1|مهم|It is important to practice every day."
+]];
+
+const PER=50,N=20,TOTAL=PER*N;   // 20 أسبوعًا × 50 كلمة = 1000 كلمة
+// تحويل النصوص إلى مصفوفة كائنات: W[أسبوع][كلمة] = {en,pos,lv,ar,ex}
+const W=WEEKS.map(w=>w.map(s=>{const[en,pos,lv,ar,ex]=s.split("|");return{en,pos,lv,ar,ex}}));
+
+/* ===== 2) الحالة والتخزين المحلي (localStorage) ===== */
+const K="ox3000_v2",LB=["لم يبدأ","قيد الدراسة","مكتمل"];
+let S={learned:{},started:{}},cur=0,hs=false,hm=false,only=false,Q=[],qi=0,fl=false;
+// hs: إخفاء الجمل | hm: إخفاء المعاني | Q/qi/fl: حالة بطاقات المراجعة
+try{const o=JSON.parse(localStorage.getItem(K));if(o)S=o;else S.learned=JSON.parse(localStorage.getItem("ox3000_v1")).learned||{}}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const app=document.getElementById("app");
+const cnt=i=>W[i].filter(x=>S.learned[x.en]).length;                      // عدد الكلمات المتعلَّمة
+const st=i=>cnt(i)==W[i].length?2:(cnt(i)||S.started[i])?1:0;            // حالة الأسبوع
+const tag=i=>`<i class="tag t${st(i)}">${LB[st(i)]}</i>`;
+
+/* ===== 3) النطق (Web Speech API): الكلمة ثم الجملة، يعمل بدون إنترنت إن توفر صوت إنكليزي ===== */
+function say(...parts){
+  try{
+    speechSynthesis.cancel();
+    const v=speechSynthesis.getVoices().find(v=>/^en/i.test(v.lang));
+    parts.forEach(t=>{const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=S.slow?.6:.85;if(v)u.voice=v;speechSynthesis.speak(u)});
+  }catch(e){}
+}
+const sayWord=(i,j)=>say(W[i][j].en);   // 🔊 الكلمة فقط
+const saySent=(i,j)=>say(W[i][j].ex);   // 🔊 الجملة فقط
+const shuf=a=>[...a].sort(()=>Math.random()-.5);   // خلط عشوائي
+// إبراز الكلمة المستهدفة داخل الجملة (تلتقط التصريفات مثل gives)
+const hl=x=>x.ex.replace(new RegExp("\\b"+x.en+"\\w*","gi"),"<mark>$&</mark>");
+
+/* ===== 4) الصفحة الرئيسية ===== */
+function home(){
+  const L=W.reduce((a,_,i)=>a+cnt(i),0),f=W.findIndex((_,i)=>st(i)<2),c=f<0?Math.min(W.length,N-1):f,p=(L/TOTAL*100).toFixed(1);
+  let g="";
+  for(let i=0;i<N;i++)g+=W[i]
+    ?`<button class="wk" style="--p:${cnt(i)/W[i].length*100}%" onclick="week(${i})"><b>الأسبوع ${i+1}</b><span>${W[i].length} كلمة</span><small>${cnt(i)} من ${W[i].length}</small>${tag(i)}</button>`
+    :`<div class="wk ghost"><b>الأسبوع ${i+1}</b><span>${PER} كلمة</span><small>يُضاف قريبًا</small></div>`;
+  app.innerHTML=`<div class="wrap in"><h1>Oxford 3000 — خطة 50 كلمة أسبوعيًا</h1>
+  <div class="chips"><span class="chip">مستوانا: A2</span><span class="chip">الخطة: 50 كلمة كل أسبوع</span><span class="chip">20 أسبوعًا</span></div>
+  <div class="stats"><div class="stat">الأسبوع الحالي<b>${c+1}</b></div><div class="stat">نسبة الإنجاز<b>${p}%</b></div>
+  <div class="stat">كلمات تعلمناها<b>${L}</b></div><div class="stat">الكلمات المتبقية<b>${TOTAL-L}</b></div></div>
+  <div class="bar"><i style="width:${p}%"></i></div>
+  <h2>الأسابيع</h2><div class="grid">${g}</div>
+  <p><small>الكلمات من قائمة Oxford 3000، مرتبة من الأسهل والأكثر استعمالًا في الحياة والدراسة إلى الأصعب.</small> <button class="link" onclick="resetAll()">إعادة ضبط التقدم</button></p></div>`;
+  scrollTo(0,0);
+}
+
+/* ===== 5) صفحة الأسبوع: تُرسم ديناميكيًا من مصفوفة البيانات ===== */
+function week(i,keep){
+  cur=i;if(!st(i)){S.started[i]=1;save()}
+  const w=W[i];
+  app.innerHTML=`<div class="wrap${keep?"":" in"}"><button class="link" onclick="home()">رجوع إلى الأسابيع</button>
+  <h1>الأسبوع ${i+1} ${tag(i)}</h1><small>تعلمنا ${cnt(i)} من ${w.length} كلمة</small>
+  <div class="bar"><i style="width:${cnt(i)/w.length*100}%"></i></div>
+  <div class="row"><button class="btn" onclick="cards(${i})">بطاقات المراجعة</button><button class="btn" onclick="quiz(${i})">اختبار الأسبوع</button></div>
+  <div class="row">
+  <button class="btn alt${hs?" on":""}" aria-pressed="${hs}" onclick="hs=true;week(${i},1)">إخفاء الجمل</button>
+  <button class="btn alt${hs?"":" on"}" aria-pressed="${!hs}" onclick="hs=false;week(${i},1)">إظهار الجمل</button>
+  <button class="btn alt${hm?" on":""}" aria-pressed="${hm}" onclick="hm=!hm;week(${i},1)">${hm?"إظهار المعاني":"إخفاء المعاني"}</button>
+  <button class="btn alt${S.slow?" on":""}" aria-pressed="${!!S.slow}" onclick="S.slow=!S.slow;save();week(${i},1)">🐢 نطق بطيء</button>
+  <button class="btn alt${only?" on":""}" aria-pressed="${only}" onclick="only=!only;week(${i},1)">غير المتعلَّمة فقط</button></div>
+  <ul class="${hs?"hs ":""}${hm?"hm":""}">${w.map((x,j)=>only&&S.learned[x.en]?"":`<li class="${S.learned[x.en]?"on":""}">
+  <div class="top"><button class="ic" aria-label="نطق الكلمة" onclick="sayWord(${i},${j})">🔊</button><div class="t"><b class="en" dir="ltr">${x.en}</b><br><small dir="ltr">${x.pos}<span class="lv">${x.lv}</span></small></div>
+  <span class="ar" onclick="this.classList.toggle('sh')">${x.ar}</span>
+  <button class="chk" aria-label="تعلمتها" onclick="tg(${i},${j})">✓</button></div>
+  <div class="sn" dir="ltr"><button class="ic sm" aria-label="نطق الجملة" onclick="saySent(${i},${j})">🔊</button>
+  <p class="ex en" onclick="this.classList.toggle('sh')">${hl(x)}</p></div></li>`).join("")}</ul>${only&&cnt(i)==w.length?`<p class="mute">أحسنت! كل كلمات الأسبوع متعلَّمة.</p>`:""}</div>`;
+  if(!keep)scrollTo(0,0);
+}
+
+// تبديل حالة "تعلمتها" لكلمة
+function tg(i,j){const k=W[i][j].en;if(S.learned[k])delete S.learned[k];else S.learned[k]=1;save();week(i,1)}
+
+/* ===== 6) بطاقات المراجعة ===== */
+function cards(i){
+  cur=i;Q=W[i].map((_,j)=>j).filter(j=>!S.learned[W[i][j].en]);   // غير المتعلَّمة أولًا
+  if(!Q.length)Q=W[i].map((_,j)=>j);
+  Q=shuf(Q);   // ترتيب عشوائي
+  qi=0;fl=false;card();
+}
+function card(keep){
+  const i=cur;
+  if(qi>=Q.length){app.innerHTML=`<div class="wrap in"><h1>انتهت الجولة</h1><p>تعلمنا ${cnt(i)} من ${W[i].length} في هذا الأسبوع.</p><div class="row"><button class="btn" onclick="week(${i})">العودة إلى الأسبوع</button><button class="btn alt" onclick="cards(${i})">جولة جديدة</button></div></div>`;return}
+  const j=Q[qi],x=W[i][j];
+  app.innerHTML=`<div class="wrap${keep?"":" in"}"><button class="link" onclick="week(${i})">رجوع</button><p class="mute">المتبقي: ${Q.length-qi}</p>
+  <div class="fc" onclick="fl=!fl;card(1)"><div class="en big" dir="ltr">${x.en}</div><small dir="ltr">${x.pos}<span class="lv">${x.lv}</span></small>
+  ${fl?`<div class="ans">${x.ar}</div><p class="en" dir="ltr">${hl(x)}</p>`:`<p class="mute">اضغط لإظهار المعنى والجملة</p>`}</div>
+  <div class="row"><button class="btn alt" onclick="sayWord(${i},${j})">🔊 الكلمة</button><button class="btn alt" onclick="saySent(${i},${j})">🔊 الجملة</button><button class="btn alt" onclick="nx(0)">لاحقًا</button><button class="btn" onclick="nx(1)">عرفتها</button></div></div>`;
+}
+function nx(k){if(k){S.learned[W[cur][Q[qi]].en]=1;save()}else Q.push(Q[qi]);qi++;fl=false;card()}   // "لاحقًا": تعود البطاقة في آخر الجولة
+
+/* ===== 7) اختبار الأسبوع: سؤال معنى (عربي ← إنكليزي) أو إكمال جملة، بخيارات عشوائية ===== */
+let QZ=[],qn=0,sc=0,miss=[];
+function quiz(i,ids){cur=i;QZ=shuf(ids||W[i].map((_,j)=>j));qn=0;sc=0;miss=[];qz()}
+function qz(){
+  const i=cur,w=W[i];
+  if(qn>=QZ.length){   // شاشة النتيجة
+    app.innerHTML=`<div class="wrap in"><button class="link" onclick="week(${i})">رجوع إلى الأسبوع</button><h1>نتيجة الاختبار</h1><p class="big" dir="ltr">${sc} / ${QZ.length}</p>
+    ${miss.length?`<p class="mute">كلمات تحتاج مراجعة:</p><p class="en" dir="ltr">${miss.map(j=>w[j].en).join(", ")}</p>`:`<p>ممتاز! كل الإجابات صحيحة.</p>`}
+    <div class="row">${miss.length?`<button class="btn" onclick="quiz(${i},[${miss}])">أعد الأخطاء فقط</button>`:""}<button class="btn alt" onclick="quiz(${i})">اختبار جديد</button></div></div>`;return}
+  const j=QZ[qn],x=w[j],re=new RegExp("\\b"+x.en+"\\w*","gi"),cz=x.ex.search(re)>=0&&Math.random()<.5;   // cz: سؤال إكمال جملة
+  const o=shuf([j,...shuf(w.map((_,k)=>k).filter(k=>k!=j)).slice(0,3)]);
+  app.innerHTML=`<div class="wrap${qn?"":" in"}"><button class="link" onclick="week(${i})">إنهاء الاختبار</button><p class="mute">السؤال ${qn+1} من ${QZ.length}</p>
+  <div class="qc">${cz?`<small>اختر الكلمة المناسبة للفراغ</small><p class="en" dir="ltr">${x.ex.replace(re,"_____")}</p>`:`<small>ما الكلمة الإنكليزية لهذا المعنى؟</small><div class="ans">${x.ar}</div>`}</div>
+  <div class="opts">${o.map(k=>`<button class="opt en" dir="ltr" data-k="${k}" onclick="pick(this,${k},${j})">${w[k].en}</button>`).join("")}</div>
+  <div class="row"><button class="btn" id="nxq" hidden onclick="qn++;qz()">${qn+1==QZ.length?"عرض النتيجة":"التالي"}</button></div></div>`;
+}
+// الإجابة: تلوين الصحيحة والخاطئة ثم إظهار زر التالي
+function pick(b,k,j){
+  if(k==j)sc++;else{miss.push(j);b.classList.add("bad")}
+  document.querySelectorAll(".opt").forEach(e=>{e.disabled=true;if(+e.dataset.k==j)e.classList.add("good")});
+  document.getElementById("nxq").hidden=false;
+}
+// إعادة ضبط كل التقدم
+function resetAll(){if(confirm("سيتم مسح كل التقدم. هل أنت متأكد؟")){S={learned:{},started:{}};save();home()}}
+
+home();
+</script>
+</body>
+</html>
